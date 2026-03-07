@@ -10,7 +10,7 @@ export default function ShowTodo({
   return (
     <>
       <div
-        className="flex justify-around items-center w-lg py-6  border-2 rounded-2xl border-gray-300 hover:border-orange-400 
+        className="flex justify-between px-8 items-center w-lg py-6  border-1 rounded-2xl border-gray-300 hover:border-orange-400 
         focus:border-orange-500 focus:outline-none
         transition duration-200 text-base "
       >

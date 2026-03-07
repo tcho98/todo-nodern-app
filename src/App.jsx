@@ -1,5 +1,5 @@
 import "./App.css";
-import { Plus, X } from "lucide-react";
+import { Plus, X, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import ButtonFilter from "./componnents/composants/ButtonFilter";
 import InputBox from "./componnents/composants/InputBox";
@@ -48,6 +48,14 @@ function App() {
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
+
+  {
+    /* gere la suppression de tous les todos*/
+  }
+
+  const clearTodos = () => {
+    setTodos([]);
+  };
 
   {
     /*gere le filtrage des todos*/
@@ -120,6 +128,15 @@ function App() {
               deleteTodo={deleteTodo}
             />
           ))}
+        </div>
+
+        <div className="mt-4">
+          <button
+            onClick={clearTodos}
+            className="w-10 h-10 rounded-full bg-orange-400 flex items-center justify-center hover:bg-red-500 transition"
+          >
+            <Trash2 className="w-5 h-5 text-white" />
+          </button>
         </div>
       </div>
     </>
