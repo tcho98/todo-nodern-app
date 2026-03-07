@@ -1,6 +1,6 @@
 import "./App.css";
 import { Plus, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ButtonFilter from "./componnents/composants/ButtonFilter";
 import InputBox from "./componnents/composants/InputBox";
 import ShowTodo from "./componnents/ShowTodo";
@@ -8,7 +8,13 @@ import FilterTodo from "./componnents/composants/ButtonFilter";
 
 function App() {
   const [showForm, setShowForm] = useState(false);
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(() => {
+    const savedTodos = localStorage.getItem("todos");
+    if (savedTodos) {
+      return JSON.parse(savedTodos);
+    }
+    return [];
+  });
   const [filter, setFilter] = useState("all");
 
   const addTodo = (text) => {
@@ -36,6 +42,12 @@ function App() {
   const deleteTodo = (id) => {
     setTodos((prev) => prev.filter((todo) => todo.id !== id));
   };
+  {
+    /*gere conversion de notre todos en text pour la sauvegarde*/
+  }
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   {
     /*gere le filtrage des todos*/
