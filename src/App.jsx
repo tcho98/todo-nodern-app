@@ -7,6 +7,9 @@ import ShowTodo from "./componnents/ShowTodo";
 import FilterTodo from "./componnents/composants/ButtonFilter";
 
 function App() {
+  {
+    /* logique to show todos*/
+  }
   const [showForm, setShowForm] = useState(false);
   const [todos, setTodos] = useState(() => {
     const savedTodos = localStorage.getItem("todos");
@@ -72,14 +75,40 @@ function App() {
     return true;
   });
 
+  {
+    /*ajout de theme dark and light*/
+  }
+  const [darkMode, setDarkMode] = useState(() => {
+    const savedTheme = localStorage.getItem("theme");
+    return savedTheme === "dark";
+  });
+
+  useEffect(() => {
+    localStorage.setItem("theme", darkMode ? "dark" : "light");
+
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [darkMode]);
+
   return (
     <>
-      <div className="flex flex-col justify-center items-center p-4">
+      <div className="min-h-screen w-full flex flex-col justify-center items-center p-4 transition bg-white text-black dark:bg-gray-900 dark:text-white">
+        <div className="w-full flex justify-end">
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            className="w-10 h-10 rounded-full border flex items-center justify-center bg-white dark:bg-gray-800 dark:border-gray-600 transition"
+          >
+            <span className="text-xl">{darkMode ? "☀️" : "🌙"}</span>
+          </button>
+        </div>
         <div className="flex flex-col gap-10 items-center justify-center p-6">
           <button
             onClick={() => setShowForm(!showForm)}
             className={`w-10 h-10 rounded-full  flex items-center justify-center transition
-              ${showForm ? "bg-red-400" : "bg-orange-400 hover:bg-orange-500"}`}
+              ${showForm ? "bg-orange-400" : "bg-orange-400 hover:bg-orange-500"}`}
           >
             <span className="text-white text-2xl  font-bold">
               {" "}
@@ -133,7 +162,7 @@ function App() {
         <div className="mt-4">
           <button
             onClick={clearTodos}
-            className="w-10 h-10 rounded-full bg-orange-400 flex items-center justify-center hover:bg-red-500 transition"
+            className="w-10 h-10 rounded-full bg-orange-400 flex items-center justify-center hover:bg-orange-500 transition"
           >
             <Trash2 className="w-5 h-5 text-white" />
           </button>
